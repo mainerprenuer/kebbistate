@@ -12,7 +12,7 @@ import { FcGallery } from "react-icons/fc";
 import { MdConnectWithoutContact } from "react-icons/md";
 
 
-export default function Aside() {
+export default function Aside({ asideOpen, handleAsideOpen }) {
 
         const router = useRouter();
         const [clicked, setClicked] = useState(false);
@@ -33,7 +33,7 @@ export default function Aside() {
         },[router.pathname])
 
         return <>
-                <aside className="asideleft active">
+                <aside className={asideOpen ? 'asideleft active' : 'asideleft'}>
                        <ul>
                        <Link href='/'>
                                 <li className="navactive">
@@ -153,7 +153,8 @@ export default function Aside() {
                                 </li>
                         </Link>
                                            
-                        </ul>                                                                                                                                    .
+                        </ul> 
+                        <button className="logoutbtn">Logout</button>                                                                                                                                   .
                 </aside>
 
         </>

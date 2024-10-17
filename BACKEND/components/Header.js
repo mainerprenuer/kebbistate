@@ -4,7 +4,7 @@ import { GoScreenFull } from 'react-icons/go'
 import { useState } from "react";
 
 
-export default function Header() {
+export default function Header({ handleAsideOpen }) {
    
     const [isFullScreen, setIsFullscreen] = useState(false);
 
@@ -24,7 +24,7 @@ export default function Header() {
         <header className="header flex flex-sb">
             <div className="logo flex gap-2">
                 <h1>ADMIN</h1>
-                <div className="headerham flex flex-center">
+                <div className="headerham flex flex-center" onClick={handleAsideOpen}>
                 <FaBarsStaggered />
                 </div>
             </div>
