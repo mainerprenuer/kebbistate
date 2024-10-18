@@ -1,6 +1,6 @@
 
 
-export default function Blogs() {
+export default function news() {
 
     return <>
         

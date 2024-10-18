@@ -87,7 +87,7 @@ export default function Aside({ asideOpen, handleAsideOpen }) {
                                 <ul> 
                                                 <Link href='/news'><li>All News</li></Link>
                                                 <Link href='/news/draft'><li>Draft News</li></Link>
-                                                <Link href='/news/addblog'><li>Add Blog</li></Link>
+                                                <Link href='/news/addnews'><li>Add news</li></Link>
                                 </ul>
                                 )}
                         </li>    
