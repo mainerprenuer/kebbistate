@@ -4,29 +4,97 @@ import MarkdownEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Spinner from './Spinner';
 import { text } from '@cloudinary/url-gen/qualifiers/source';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
-export default function News() {
+export default function News({
+    _id
+}) {
     
+    const [redirect, setRedirect] = useState(false);
+    const router = useRouter();
+
+    const [title, setTitle] = useState('');
+    const [slug, setSlug] = useState([]);
+    const [images, setImages] = useState([])
+    const [description, setDescription] = useState('');
+    const [newscategory, setNewsCategory] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [status, setStatus] = useState('');
+
+    // for images uploading
+    const [isUploading, setIsUploading] = useState(false);
+    const uploadImagesQueue = [];
+
+    async function createNews(ev) {
+        ev.preventDefault();
+
+        const data = {
+            title,
+            slug,
+            images,
+            description,
+            newscategory,
+            tags,
+            status
+        };
+        if (_id) {
+            await axios.put('/api/news', {...data, _id})
+            toast.success('Data Updated Successfully')
+        } else {
+            await axios.post('/api/news', data)
+            toast.success('News Created Successfully')
+        }
+
+        setRedirect(true);
+    };
 
 
+    // for slug url
+    const handleSlugChange = (ev) => {
+        const inputValue = ev.target.value;
+        const newSlug = inputValue.replace(/\s+/g, '-') //replace spaces with hyphens
+
+        setSlug(newSlug);
+    }
     return <>
-       <form className='addWebsiteform'>
+       <form className='addWebsiteform' onSubmit={createNews}>
         {/* news title */}
         <div className='w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='title'>Title</label>
-            <input type='text' id='title' placeholder='Enter small title'/>
+            <input 
+            type='text' 
+            id='title' 
+            placeholder='Enter small title'
+            value={title}
+            onChange={ev => setTitle(ev.target.value)}
+            />
         </div>
 
         {/* blog slug url */}
         <div className='w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='slug'>Slug (seo friendly url)</label>
-            <input type='text' id='slug' placeholder='Enter slug url'/>
+            <input 
+            type='text' 
+            id='slug' 
+            placeholder='Enter slug url'
+            value={slug}
+            onChange= {ev => setSlug(ev.target.value)}
+            />
         </div>
 
         {/* blog category */}
         <div className='w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='category'>Select Category (for multi select press ctr + mouse left key)</label>
-            <select name='category' id='category' multiple>
+            <select 
+            onChange={(e) => setNewsCategory(Array.from(e.target.selectedOptions, option => option.value))}
+            value={newscategory}
+            name='category' 
+            id='category' 
+            multiple
+            >
                 <option value="Power Supply">Power Supply</option>
                 <option value="Water Supply">Water Supply</option>
                 <option value="Salary">Salary</option>
@@ -55,6 +123,10 @@ export default function News() {
         <div className='description w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='description'>News Content (for image: first upload and copy link and paste in ![alt text(link)]) </label>
             <MarkdownEditor 
+
+            value={description}
+            onChange={(ev) => setDescription(ev.text)}
+
             style={{width: '100%', height:'400px'}} 
 
             renderHTML={(text) => (
@@ -92,7 +164,13 @@ export default function News() {
         {/* tags */}
         <div className='w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='tags'>Tags</label>
-            <select name='tags' id='tags' multiple>
+            <select
+            value={tags}
+            onChange= {ev => setTags(ev.target.value)} 
+            name='tags' 
+            id='tags' 
+            multiple
+            >
                 <option value="skills acquisition">Skills acquisition</option>
                 <option value="orphans">Orphans</option>
                 <option value="widows">Widows</option>
@@ -105,7 +183,12 @@ export default function News() {
         {/* blog status */}
         <div className='w-100 flex flex-col flex-left mb-2'>
             <label htmlFor='status'>Status</label>
-            <select name='status' id='status'>
+            <select 
+            value={status}
+            onChange= {ev => setStatus(ev.target.value)}
+            name='status' 
+            id='status'
+            >
                 <option value="">No select</option>
                 <option value="draft">Draft</option>
                 <option value="publish">Publish</option>
