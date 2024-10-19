@@ -9,9 +9,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-export default function News({
-    _id
-}) {
+export default function News(
+    {
+        _id
+    }
+) {
     
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
@@ -109,7 +111,7 @@ export default function News({
         <div className='w-100 flex flex-col flex-left mb-2'>
             <div className='w-100'>
                 <label htmlFor='images'>Images (first image will be shown as thumbnail, you can drag)</label>
-                <input type='file' id='fileInput' className='mt-1' accept='image' multiple/>
+                {/* <input type='file' id='fileInput' className='mt-1' accept='image' multiple/> */}
             </div>
             <div className='w-100 flex flex-left mt-1'>
                 <Spinner />
@@ -166,7 +168,7 @@ export default function News({
             <label htmlFor='tags'>Tags</label>
             <select
             value={tags}
-            onChange= {ev => setTags(ev.target.value)} 
+            onChange= {(e) => setTags(Array.from(e.target.selectedOptions, option => option.value))} 
             name='tags' 
             id='tags' 
             multiple
