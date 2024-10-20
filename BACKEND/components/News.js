@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { ReactSortable } from 'react-sortablejs';
+import { MdDeleteForever } from 'react-icons/md';
 
 export default function News(
     {
@@ -33,6 +35,10 @@ export default function News(
     async function createNews(ev) {
         ev.preventDefault();
 
+        if(isUploading) {
+            await Promise.all(uploadImagesQueue)
+        }
+
         const data = {
             title,
             slug,
@@ -53,6 +59,49 @@ export default function News(
         setRedirect(true);
     };
 
+    async function uploadImages(ev) {
+        const files = ev.target?.files;
+        if(files?.length > 0) {
+            setIsUploading(true);
+
+            for (const file of files) {
+                const data = new FormData();
+                data.append('file', file);
+
+                //use the axios.post method and push the promise to the queue
+                uploadImagesQueue.push(
+                    axios.post('/api/upload', data).then(res => {
+                        setImages(oldImages => [...oldImages, ...res.data.links])
+                    })
+                )
+            }
+
+            //wait for all images to finish uploading
+
+            await Promise.all(uploadImagesQueue);
+
+            setIsUploading(false);
+            toast.success('Images Uploaded Successfully')
+        } else {
+            toast.error('Error uploading Images!')
+        }
+    }
+
+    if(redirect) {
+        router.push('/news')
+        return null;
+    }
+
+    function updateImagesOrder(images) {
+        setImages(images)
+    }
+
+    function handleDeleteImage(index) {
+        const updateImages = [...images]
+        updateImages.splice(index, 1);
+        setImages(updateImages);
+        toast.success('Image Deleted Successfully')
+    }
 
     // for slug url
     const handleSlugChange = (ev) => {
@@ -83,7 +132,7 @@ export default function News(
             id='slug' 
             placeholder='Enter slug url'
             value={slug}
-            onChange= {ev => setSlug(ev.target.value)}
+            onChange={ev => setSlug(ev.target.value)}
             />
         </div>
 
@@ -111,15 +160,39 @@ export default function News(
         <div className='w-100 flex flex-col flex-left mb-2'>
             <div className='w-100'>
                 <label htmlFor='images'>Images (first image will be shown as thumbnail, you can drag)</label>
-                <input type='file' id='fileInput' className='mt-1' accept='image/*' multiple/>
+                <input 
+                    type='file' 
+                    id='fileInput' 
+                    className='mt-1' 
+                    accept='image/*' 
+                    multiple
+                    onChange={uploadImages} />
             </div>
             <div className='w-100 flex flex-left mt-1'>
-                <Spinner />
+                {isUploading && (<Spinner />)}
             </div>
         </div>
 
-        {/* image preview and image sortable */}
-        {/* pending */}
+        {/* image preview and image sortable with delete image */}
+        {!isUploading && (
+            <div className='flex'>
+                <ReactSortable 
+                    list={Array.isArray(images) ? images : []}
+                    setList={updateImagesOrder}
+                    animation={200}
+                    className='flex gap-1'
+                >
+                    {images?.map((link, index) => (
+                        <div key={link} className='uploadedimg'>
+                            <img src={link} alt='image' className='object-cover' />
+                            <div className='deleteimg'>
+                                <button onClick={() => handleDeleteImage(index)}><MdDeleteForever /></button>
+                            </div>
+                        </div>
+                    ))}
+                </ReactSortable>
+            </div>
+        )}
 
         {/* markdown description */}
         <div className='description w-100 flex flex-col flex-left mb-2'>
