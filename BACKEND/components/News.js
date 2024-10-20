@@ -97,9 +97,9 @@ export default function News(
     }
 
     function handleDeleteImage(index) {
-        const updateImages = [...images]
-        updateImages.splice(index, 1);
-        setImages(updateImages);
+        const updatedImages = [...images]
+        updatedImages.splice(index, 1);
+        setImages(updatedImages);
         toast.success('Image Deleted Successfully')
     }
 
@@ -110,6 +110,7 @@ export default function News(
 
         setSlug(newSlug);
     }
+
     return <>
        <form className='addWebsiteform' onSubmit={createNews}>
         {/* news title */}
