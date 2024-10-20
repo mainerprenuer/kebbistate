@@ -111,7 +111,7 @@ export default function News(
         <div className='w-100 flex flex-col flex-left mb-2'>
             <div className='w-100'>
                 <label htmlFor='images'>Images (first image will be shown as thumbnail, you can drag)</label>
-                {/* <input type='file' id='fileInput' className='mt-1' accept='image' multiple/> */}
+                <input type='file' id='fileInput' className='mt-1' accept='image/*' multiple/>
             </div>
             <div className='w-100 flex flex-left mt-1'>
                 <Spinner />
@@ -134,7 +134,7 @@ export default function News(
             renderHTML={(text) => (
                 <ReactMarkdown components={{
                     code: ({node, inline, className, children, ...props}) => {
-
+ 
                         //for code
                         const match = /language-(\w+)/.exec(className || '');
 
@@ -147,7 +147,7 @@ export default function News(
                                         whiteSpace: 'pre-wrap'}} {...props}>
                                             <code>{children}</code>
                                         </pre>
-                                        <button style={{position:'absolute', top: '0', right: '0', zIndex: '1'}} onClick={() => navigator.clipboard.writeText(children)}>
+                                        <button style={{position:'ab solute', top: '0', right: '0', zIndex: '1'}} onClick={() => navigator.clipboard.writeText(children)}>
                                             copy code
                                         </button>
                                 </div>

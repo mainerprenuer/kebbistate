@@ -1,4 +1,3 @@
-import { mode } from '@cloudinary/url-gen/actions/rotate';
 
 const { Schema, models, model } = require('mongoose');
 

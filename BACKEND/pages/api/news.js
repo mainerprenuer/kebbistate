@@ -1,4 +1,5 @@
-import News from "@/components/News";
+import { News } from "@/models/News";
+import { mongooseConnect } from "@/lib/mongoose";
 
 export default async function handle(req, res) {
     
