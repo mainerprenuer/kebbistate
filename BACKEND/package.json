@@ -23,6 +23,7 @@
     "multiparty": "^4.2.3",
     "next": "^14.2.15",
     "next-auth": "^3.29.10",
+    "or": "^0.2.0",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",

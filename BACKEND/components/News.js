@@ -84,7 +84,7 @@ export default function News(
             toast.success('Images Uploaded Successfully')
         } else {
             toast.error('Error uploading Images!')
-        }
+        } 
     }
 
     if(redirect) {
@@ -94,7 +94,7 @@ export default function News(
 
     function updateImagesOrder(images) {
         setImages(images)
-    }
+    } 
 
     function handleDeleteImage(index) {
         const updatedImages = [...images]
@@ -197,7 +197,7 @@ export default function News(
 
         {/* markdown description */}
         <div className='description w-100 flex flex-col flex-left mb-2'>
-            <label htmlFor='description'>News Content (for image: first upload and copy link and paste in ![alt text(link)]) </label>
+            <label htmlFor='description'>News Content (for image: first upload and copy link and paste in ![alt text](link)) </label>
             <MarkdownEditor 
 
             value={description}

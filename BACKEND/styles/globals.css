@@ -764,7 +764,7 @@ button {
 }
 
 .newstable table button:hover:nth-child(3) {
-    background-color: rgb(14, 130, 198);
+    background-color: rgb(14, 198, 81);
     border-color: rgb(63, 206, 63);
     color: #fff;
 }
@@ -791,12 +791,12 @@ button {
 }
 
 .newspagination button:hover {
-    background-color: #667eea;
+    background-color: #07e56f;
     color: #fff;
 }
 
 .newspagination button.active {
-    background-color: #667eea;
+    background-color: #07e56f;
     color: #fff;
 }
 
@@ -1458,7 +1458,7 @@ button {
 .jimu-primary-loading:before,
 .jimu-primary-loading:after,
 .jimu-primary-loading {
-    background: #076fe5;
+    background: #07e56f;
     -webkit-animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     animation: loading-keys-app-loading 0.8s infinite ease-in-out;
     width: 13.6px;
@@ -1481,13 +1481,13 @@ button {
     80%,
     100% {
         opacity: .75;
-        box-shadow: 0 0 #076fe5;
+        box-shadow: 0 0 #07e56f;
         height: 32px;
     }
 
     40% {
         opacity: 1;
-        box-shadow: 0 -8px #076fe5;
+        box-shadow: 0 -8px #07e56f;
         height: 40px;
     }
 }
@@ -1498,13 +1498,13 @@ button {
     80%,
     100% {
         opacity: .75;
-        box-shadow: 0 0 #076fe5;
+        box-shadow: 0 0 #07e56f;
         height: 32px;
     }
 
     40% {
         opacity: 1;
-        box-shadow: 0 -8px #076fe5;
+        box-shadow: 0 -8px #07e56f;
         height: 40px;
     }
 }
