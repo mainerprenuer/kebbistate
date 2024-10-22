@@ -39,9 +39,9 @@ export default function News() {
     const currentNews = filteredNews.slice(indexOfFirstNews, indexOfLastNews);
 
     const publishedNews = currentNews.filter(ab => ab.status === 'publish');
-    console.log("hahahah", publishedNews)
+    // console.log("hahahah", publishedNews)
 
-    const pageNumbers = [0];
+    const pageNumbers = [];
 
     for(let i=1; i<= Math.ceil(allNews / perPage); i++) {
         pageNumbers.push(i);
