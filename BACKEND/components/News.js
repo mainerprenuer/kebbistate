@@ -12,22 +12,30 @@ import { MdDeleteForever } from 'react-icons/md';
 
 export default function News(
     {
-        _id
+        _id,
+        title: existingTitle,
+        slug: existingSlug,
+        images: existingImages,
+        description: existingDescription,
+        newscategory: existingNewsCategory,
+        tags: existingTags,
+        status: existingStatus,
+        
     }
 ) {
     
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
-    const [title, setTitle] = useState('');
-    const [slug, setSlug] = useState([]);
-    const [images, setImages] = useState([])
-    const [description, setDescription] = useState('');
-    const [newscategory, setNewsCategory] = useState([]);
-    const [tags, setTags] = useState([]);
-    const [status, setStatus] = useState('');
+    const [title, setTitle] = useState(existingTitle || '');
+    const [slug, setSlug] = useState(existingSlug || []);
+    const [images, setImages] = useState(existingImages || [])
+    const [description, setDescription] = useState(existingDescription || '');
+    const [newscategory, setNewsCategory] = useState(existingNewsCategory || []);
+    const [tags, setTags] = useState(existingTags || []);
+    const [status, setStatus] = useState(existingStatus || '');
 
-    // for images uploading
+    // for images uploading 
     const [isUploading, setIsUploading] = useState(false);
     const uploadImagesQueue = [];
 

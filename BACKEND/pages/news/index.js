@@ -2,8 +2,9 @@ import Dataloading from "@/components/Dataloading";
 import useFetchData from "@/hooks/useFetchData";
 import Link from "next/link";
 import { useState } from "react";
-import { TiDelete, TiNews } from "react-icons/ti";
-import { TiEdit } from 'react-icons/ti'
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import {  TiNews } from "react-icons/ti";
 
 
 export default function News() {
@@ -41,10 +42,10 @@ export default function News() {
     const publishedNews = currentNews.filter(ab => ab.status === 'publish');
     // console.log("hahahah", publishedNews)  
 
-    const pageNumber = [];
+    const pageNumbers = [];
 
     for(let i=1; i<= Math.ceil(allNews / perPage); i++) {
-        pageNumber.push(i);
+        pageNumbers.push(i);
     }
 
     return <>
@@ -61,7 +62,8 @@ export default function News() {
             <div className="newstable">
                 <div className="flex gap-2 mb-1">
                     <h2>Search News:</h2>
-                    <input type="text" placeholder="Search by title..." />
+                    <input value={searchQuery} onChange={ev => setSearchQuery(ev.target.value)} 
+                        type="text" placeholder="Search by title..." />
                 </div>
                 <table className="table table-styling">
                     <thead>
@@ -92,8 +94,8 @@ export default function News() {
                                     <td><h3>{news.title}</h3></td>
                                     <td>
                                         <div className="flex gap-2 flex-center">
-                                            <Link href={'/news/edit/' + news._id }><button><TiEdit /></button></Link>
-                                            <Link href={'/news/delete/' + news._id }><button><TiDelete /></button></Link>
+                                            <Link href={'/news/edit/' + news._id }><button><FaEdit /></button></Link>
+                                            <Link href={'/news/delete/' + news._id }><button><RiDeleteBin6Fill /></button></Link>
                                         </div>
                                     </td>
                                 </tr>
