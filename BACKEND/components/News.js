@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import MarkdownEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Spinner from './Spinner';
-import { text } from '@cloudinary/url-gen/qualifiers/source';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

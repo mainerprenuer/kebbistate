@@ -21,7 +21,7 @@ function useFetchData(apiEndpoint){
                const res = await axios.get(apiEndpoint) ;
                const allData = res.data;
                setAllData(allData);
-               console.log("data", allData)
+            //    console.log("data", allData)
                setLoading(false);
             } catch (error) {
                 setLoading(false);

@@ -32,13 +32,14 @@ export default function News() {
         news => news.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
     //calculate index of the first blog displayed on the current page
-    const indexOfFirstNews = (currentPage -1) * perPage;
+    const indexOfFirstNews = (currentPage - 1) * perPage;
     const indexOfLastNews = currentPage * perPage;
 
     //get the current page's news
     const currentNews = filteredNews.slice(indexOfFirstNews, indexOfLastNews);
 
     const publishedNews = currentNews.filter(ab => ab.status === 'publish');
+    // console.log("hahahah", publishedNews)  
 
     const pageNumber = [];
 
@@ -85,8 +86,8 @@ export default function News() {
                             </tr>
                         ) : (
                             publishedNews.map((news, index) => {
-                                <tr key={news._id}>
-                                    <td>{indexOfFirstNews + index + 1}</td>
+                                return  <tr key={news._id}>
+                                    <td>{indexOfFirstNews + 1 + index}</td>
                                     <td><img src={news.images[0]} width={180} alt="image" /></td>
                                     <td><h3>{news.title}</h3></td>
                                     <td>
